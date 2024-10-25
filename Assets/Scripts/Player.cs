@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] TMP_Text hpText;
     Rigidbody2D rb;
-    int playerHp;
+    float playerHp;
     public int speed = 2;
     public float gravity = 2f;
     float TimeHp;
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         }
     }
     
-    public void HpGagnier(int hpGagnier)
+    public void HpGagnier(float hpGagnier)
     {
         playerHp = Mathf.Clamp(playerHp + hpGagnier,0,100);
         UpdateTextHp();

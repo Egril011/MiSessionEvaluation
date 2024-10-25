@@ -6,7 +6,10 @@ public class Spike : MonoBehaviour
 {
     public void Update()
     {
-        
+        if (gameObject.transform.position.y < -7)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -14,7 +17,6 @@ public class Spike : MonoBehaviour
         Player player = collision.GetComponent<Player>();
         if (player != null)
         {
-            Debug.Log(1);
             player.TakeDamage(10);
             Destroy(gameObject);
         }
