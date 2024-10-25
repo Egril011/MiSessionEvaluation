@@ -23,6 +23,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TimeHp += Time.deltaTime;
+
+        if (TimeHp > 2)
+        {
+            LostHP();
+            TimeHp = 0;
+        }
+
         float x = Input.GetAxis("Horizontal");
 
         Vector2 velocity = rb.velocity;
@@ -39,13 +47,7 @@ public class Player : MonoBehaviour
 
         rb.velocity = velocity;
 
-        TimeHp += Time.deltaTime;
         
-        if (TimeHp > 2)
-        {
-            LostHP();
-            TimeHp = 0;
-        }
     }
 
     public void UpdateTextHp()
@@ -65,9 +67,15 @@ public class Player : MonoBehaviour
         }
     }
     
-    public void HpReturn(int hpGagnier)
+    public void HpGagnier(int hpGagnier)
     {
         playerHp = Mathf.Clamp(playerHp + hpGagnier,0,100);
+        UpdateTextHp();
+    }
+
+    public void TakeDamage(int demage)
+    {
+        playerHp = Mathf.Clamp(playerHp - demage, 0, 100);
         UpdateTextHp();
     }
 }
