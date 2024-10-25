@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     Camera cam;
+    public Transform player;
 
     public void Start()
     {
@@ -14,7 +15,7 @@ public class PlayerCamera : MonoBehaviour
     public void Update() 
     {
         Vector3 posCam = cam.transform.position;
-        posCam.x = transform.position.x;
+        posCam.x = player.transform.position.x;
         cam.transform.position = posCam;
     }
     

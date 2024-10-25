@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
 
         if (playerHp == 0)
         {
+            
             var gameOver = FindAnyObjectByType<GameOver>();
             gameOver.SetGameOver();
         }
