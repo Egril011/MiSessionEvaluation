@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Jobs;
 
 public class Player : MonoBehaviour
 {
@@ -39,8 +40,8 @@ public class Player : MonoBehaviour
         rb.velocity = velocity;
 
         TimeHp += Time.deltaTime;
-
-        if (TimeHp > 1)
+        
+        if (TimeHp > 2)
         {
             LostHP();
             TimeHp = 0;
@@ -54,13 +55,19 @@ public class Player : MonoBehaviour
 
     public void LostHP()
     {
-        playerHp = Mathf.Max(playerHp,1);
-        playerHp--;
+        playerHp = Mathf.Clamp(playerHp-1, 0,100);  
         UpdateTextHp();
-        if (playerHp > 0)
+
+        if (playerHp == 0)
         {
             var gameOver = FindAnyObjectByType<GameOver>();
             gameOver.SetGameOver();
         }
+    }
+    
+    public void HpReturn(int hpGagnier)
+    {
+        playerHp = Mathf.Clamp(playerHp + hpGagnier,0,100);
+        UpdateTextHp();
     }
 }

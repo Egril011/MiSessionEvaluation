@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 public class GameOver : MonoBehaviour
 {
     [SerializeField] Animator gameOver;
+    public Transform playerSpawn;
+
     public void Start()
     {
         gameOver = GetComponent<Animator>();
@@ -15,5 +17,12 @@ public class GameOver : MonoBehaviour
     public void SetGameOver()
     {
         gameOver.SetTrigger("GameOver");
+        var player = FindAnyObjectByType<Player>();
+
+        player.transform.position = playerSpawn.position;
+        gameOver.SetTrigger("GameOverDone");
+
     }
 }
+
+
