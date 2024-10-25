@@ -10,8 +10,7 @@ public class Player : MonoBehaviour
     int playerHp;
     public int speed = 2;
     public float gravity = 2f;
-    public float swim = 2f;
-
+    float TimeHp;
 
     public void Start()
     {
@@ -30,18 +29,38 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            velocity.y = swim;
+            velocity.y = gravity;
         }
         else
         {
             velocity.y -= gravity * Time.deltaTime;
         }
 
-      rb.velocity = velocity;
+        rb.velocity = velocity;
+
+        TimeHp += Time.deltaTime;
+
+        if (TimeHp > 1)
+        {
+            LostHP();
+            TimeHp = 0;
+        }
     }
 
     public void UpdateTextHp()
     {
         hpText.text = "HP: " + playerHp;
+    }
+
+    public void LostHP()
+    {
+        playerHp = Mathf.Max(playerHp,1);
+        playerHp--;
+        UpdateTextHp();
+        if (playerHp > 0)
+        {
+            var gameOver = FindAnyObjectByType<GameOver>();
+            gameOver.SetGameOver();
+        }
     }
 }
